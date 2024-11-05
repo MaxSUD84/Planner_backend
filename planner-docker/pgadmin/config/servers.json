@@ -1,0 +1,14 @@
+{
+    "Servers": {
+      "1": {
+        "Name": "planner_server",
+        "Group": "Servers",
+        "Host": "host.docker.internal",
+        "Port": 6431,
+        "MaintenanceDB": "postgres",
+        "Username": "planner_admin",
+        "PassFile": "/pgpass",
+        "SSLMode": "prefer"
+      }
+    }
+  }

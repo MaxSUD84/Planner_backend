@@ -1,0 +1,727 @@
+{
+	"info": {
+		"_postman_id": "9dcca8eb-3aae-49f3-ac86-bbc2da6364f0",
+		"name": "Planner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28118389",
+		"_collection_link": "https://speeding-meteor-124406.postman.co/workspace/SDP~57d868ca-b24a-4d89-86a2-040560baa856/collection/28118389-9dcca8eb-3aae-49f3-ac86-bbc2da6364f0?action=share&source=collection_link&creator=28118389"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "SignIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// записываем токен авторизации в переменную коллекции\r",
+									"pm.collectionVariables.set(\"AccessToken\", pm.response.json().accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@mail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/sign-in",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@mail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/sign-up",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAccessToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/auth/access-token",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"access-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignOut",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"AccessToken\", \"\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/auth/sign-out",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"sign-out"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GetProfile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/user-profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PatchProfile",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Max (GMV)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user-profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-profile"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{AccessToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "GetTasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/user-tasks",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PatchTask",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Tasks\",\r\n    \"priority\": \"low\",\r\n    \"isCompleted\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user-tasks/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-tasks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cm2npkbtg00009tuiy5jwpgk2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTask",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Task\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user-tasks",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTask",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Task\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user-tasks/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user-tasks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cm2nh5xk10001ink2daiqfpnp"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{AccessToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "TimeBlocks",
+			"item": [
+				{
+					"name": "GetTimeBlocks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/time-blocks",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"time-blocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PatchTimeBlock",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Tasks 1\",\r\n    \"duration\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/time-blocks/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"time-blocks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cm2nkyglw0000tba4iklejc9z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTimeBlock",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Task 2\",\r\n    \"color\": \"green\",\r\n    \"duration\": 1500,\r\n    \"order\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/time-blocks",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"time-blocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOrders",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ids\": [\r\n        \"cm2nkywyl0001tba44fvo67i5\",\r\n        \"cm2nkyglw0000tba4iklejc9z\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/time-blocks/update-order",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"time-blocks",
+								"update-order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTimeBlock",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Task\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/time-blocks/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"time-blocks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cm2nl5p3i0003tba4mdb1y1t6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{AccessToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "PomodoroTimer",
+			"item": [
+				{
+					"name": "GetPomodoroSession",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pomodoro-timer/today",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pomodoro-timer",
+								"today"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePomodoroRound",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"totalSeconds\": 11111111\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pomodoro-timer/round/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pomodoro-timer",
+								"round",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cm2np4imc000eycq5x4527fk3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePomodoroSession",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"cm2np4imc0008ycq5xk3lzsgn\",\r\n    \"createdAt\": \"2024-10-24T19:28:17.989Z\",\r\n    \"updatedAt\": \"2024-10-24T19:28:17.989Z\",\r\n    \"isCompleted\": true,\r\n    \"userId\": \"cm2n0uhjr000076pnx7hotr0h\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pomodoro-timer/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pomodoro-timer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cm2np4imc0008ycq5xk3lzsgn"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePomodoroSession",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pomodoro-timer",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pomodoro-timer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePomodoroSession",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pomodoro-timer/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pomodoro-timer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cm2noo3lz0000ycq577cz2ptv"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{AccessToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:5000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "AccessToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
